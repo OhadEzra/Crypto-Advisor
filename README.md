@@ -133,7 +133,7 @@ Useful tables:
 - `users`
 - `preferences`
 - `votes`
-
+- 'watchlist_items'
 You can inspect it with any SQLite browser or with the command line:
 
 ```bash
