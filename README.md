@@ -219,7 +219,7 @@ SELECT * FROM votes;
 
 ---
 
-## AI Tools Usage Summary
+
 
 ## AI Tools Usage Summary
 
