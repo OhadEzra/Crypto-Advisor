@@ -52,10 +52,10 @@ type DashboardData = {
       summary: string;
     };
     portfolioScore: {
-  score: number;
-  strengths: string[];
-  weaknesses: string[];
-};
+      score: number;
+      strengths: string[];
+      weaknesses: string[];
+    };
     riskProfile: {
       level: string;
       summary: string;
@@ -127,7 +127,7 @@ export default function Dashboard() {
   if (error) {
     return (
       <main className="min-h-screen grid place-items-center px-6 text-center">
-        <div className="card max-w-md">
+        <div className="card max-w-md border-red-500/20 bg-red-500/5">
           <h2 className="text-2xl font-black text-red-300 mb-2">Dashboard failed to load</h2>
           <p className="text-slate-300 mb-5">{error}</p>
           <button onClick={loadDashboard} className="btn">
@@ -177,8 +177,6 @@ export default function Dashboard() {
               <span className="badge text-cyan-300">
                 {data.user.investorType} investor
               </span>
-
-              
             </div>
           </div>
 
@@ -194,125 +192,125 @@ export default function Dashboard() {
       </section>
 
       <section className="grid md:grid-cols-5 gap-4 mb-6">
-        <StatCard icon={<Star size={18} />} label="Tracked Assets" value={stats.watchlistCount} hint="Personal watchlist" />
-        <StatCard icon={<Newspaper size={18} />} label="Market Briefs" value={stats.newsCount} hint="Curated updates" />
-        <StatCard icon={<ThumbsUp size={18} />} label="Positive Signals" value={stats.likes} hint="Liked content" />
-        <StatCard icon={<ThumbsDown size={18} />} label="Negative Signals" value={stats.dislikes} hint="Disliked content" />
-        <StatCard icon={<ShieldCheck size={18} />} label="Learning Signals" value={stats.feedbackCount} hint="Feedback stored" />
+        <StatCard icon={<Star size={18} />} label="Tracked Assets" value={stats.watchlistCount} hint="Personal watchlist" tone="violet" />
+        <StatCard icon={<Newspaper size={18} />} label="Market Briefs" value={stats.newsCount} hint="Curated updates" tone="sky" />
+        <StatCard icon={<ThumbsUp size={18} />} label="Positive Signals" value={stats.likes} hint="Liked content" tone="emerald" />
+        <StatCard icon={<ThumbsDown size={18} />} label="Negative Signals" value={stats.dislikes} hint="Disliked content" tone="red" />
+        <StatCard icon={<ShieldCheck size={18} />} label="Learning Signals" value={stats.feedbackCount} hint="Feedback stored" tone="cyan" />
       </section>
 
       {data.aiAdvisor && (
-  <section className="grid lg:grid-cols-3 gap-4 mb-6 items-start">
-    <div className="card">
-      <p className="badge mb-3">Market Sentiment</p>
+        <section className="grid lg:grid-cols-3 gap-4 mb-6 items-start">
+          <div className="card border-emerald-500/20 bg-emerald-500/5">
+            <p className="badge mb-3">Market Sentiment</p>
 
-      <h3 className="text-3xl font-black">
-        {data.aiAdvisor.sentiment.label}
-      </h3>
+            <h3 className="text-3xl font-black">
+              {data.aiAdvisor.sentiment.label}
+            </h3>
 
-      <p className="text-cyan-300 text-xl mt-2">
-        {data.aiAdvisor.sentiment.score}%
-      </p>
-
-      <p className="text-slate-400 mt-3">
-        {data.aiAdvisor.sentiment.summary}
-      </p>
-    </div>
-
-    <div className="card">
-      <p className="badge mb-3">Risk Profile</p>
-
-      <h3 className="text-3xl font-black">
-        {data.aiAdvisor.riskProfile.level}
-      </h3>
-
-      <p className="text-slate-300 mt-3">
-        {data.aiAdvisor.riskProfile.summary}
-      </p>
-
-      <p className="text-cyan-300 text-sm mt-4">
-        {data.aiAdvisor.riskProfile.suggestion}
-      </p>
-    </div>
-
-    <div className="card">
-      <p className="badge mb-3">Portfolio Health</p>
-
-      <h3 className="text-4xl font-black text-cyan-300">
-        {data.aiAdvisor.portfolioScore.score}/100
-      </h3>
-
-      <div className="mt-4">
-        <p className="text-emerald-300 font-bold text-sm mb-2">Strengths</p>
-
-        {data.aiAdvisor.portfolioScore.strengths.length ? (
-          <ul className="space-y-1">
-            {data.aiAdvisor.portfolioScore.strengths.map(item => (
-              <li key={item} className="text-slate-300 text-sm">
-                ✓ {item}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-slate-500 text-sm">No clear strengths yet.</p>
-        )}
-      </div>
-
-      <div className="mt-4">
-        <p className="text-red-300 font-bold text-sm mb-2">Weaknesses</p>
-
-        {data.aiAdvisor.portfolioScore.weaknesses.length ? (
-          <ul className="space-y-1">
-            {data.aiAdvisor.portfolioScore.weaknesses.map(item => (
-              <li key={item} className="text-slate-300 text-sm">
-                • {item}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-slate-500 text-sm">No major weaknesses detected.</p>
-        )}
-      </div>
-    </div>
-
-    <div className="card lg:col-span-3">
-  <p className="badge mb-3">AI Recommendations</p>
-
-      <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-3">
-        {data.aiAdvisor.recommendations.map(rec => (
-          <div
-            key={rec.id}
-            className="rounded-xl bg-slate-900/70 p-3 border border-white/5"
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <h4 className="font-bold">{rec.title}</h4>
-                <p className="text-xs text-slate-500 mt-1">
-                  {rec.type} · {rec.asset}
-                </p>
-              </div>
-
-              <span className="badge text-cyan-300">
-                {rec.confidence}%
-              </span>
-            </div>
-
-            <p className="text-slate-400 text-sm mt-2">
-              {rec.reason}
+            <p className="text-emerald-300 text-xl mt-2">
+              {data.aiAdvisor.sentiment.score}%
             </p>
 
-            <p className="text-slate-300 text-sm mt-2">
-              Suggested action: {rec.action}
+            <p className="text-slate-400 mt-3">
+              {data.aiAdvisor.sentiment.summary}
             </p>
           </div>
-        ))}
-      </div>
-    </div>
-  </section>
-)}
+
+          <div className="card border-amber-500/20 bg-amber-500/5">
+            <p className="badge mb-3">Risk Profile</p>
+
+            <h3 className="text-3xl font-black">
+              {data.aiAdvisor.riskProfile.level}
+            </h3>
+
+            <p className="text-slate-300 mt-3">
+              {data.aiAdvisor.riskProfile.summary}
+            </p>
+
+            <p className="text-amber-300 text-sm mt-4">
+              {data.aiAdvisor.riskProfile.suggestion}
+            </p>
+          </div>
+
+          <div className="card border-violet-500/20 bg-violet-500/5">
+            <p className="badge mb-3">Portfolio Health</p>
+
+            <h3 className="text-4xl font-black text-violet-300">
+              {data.aiAdvisor.portfolioScore.score}/100
+            </h3>
+
+            <div className="mt-4">
+              <p className="text-emerald-300 font-bold text-sm mb-2">Strengths</p>
+
+              {data.aiAdvisor.portfolioScore.strengths.length ? (
+                <ul className="space-y-1">
+                  {data.aiAdvisor.portfolioScore.strengths.map(item => (
+                    <li key={item} className="text-slate-300 text-sm">
+                      ✓ {item}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-slate-500 text-sm">No clear strengths yet.</p>
+              )}
+            </div>
+
+            <div className="mt-4">
+              <p className="text-red-300 font-bold text-sm mb-2">Weaknesses</p>
+
+              {data.aiAdvisor.portfolioScore.weaknesses.length ? (
+                <ul className="space-y-1">
+                  {data.aiAdvisor.portfolioScore.weaknesses.map(item => (
+                    <li key={item} className="text-slate-300 text-sm">
+                      • {item}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-slate-500 text-sm">No major weaknesses detected.</p>
+              )}
+            </div>
+          </div>
+
+          <div className="card lg:col-span-3 border-cyan-500/20 bg-cyan-500/5">
+            <p className="badge mb-3">AI Recommendations</p>
+
+            <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-3">
+              {data.aiAdvisor.recommendations.map(rec => (
+                <div
+                  key={rec.id}
+                  className="rounded-xl bg-slate-900/70 p-3 border border-cyan-500/10"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="font-bold">{rec.title}</h4>
+                      <p className="text-xs text-slate-500 mt-1">
+                        {rec.type} · {rec.asset}
+                      </p>
+                    </div>
+
+                    <span className="badge text-cyan-300">
+                      {rec.confidence}%
+                    </span>
+                  </div>
+
+                  <p className="text-slate-400 text-sm mt-2">
+                    {rec.reason}
+                  </p>
+
+                  <p className="text-slate-300 text-sm mt-2">
+                    Suggested action: {rec.action}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {data.feedbackSummary && (
-        <section className="card mb-6">
+        <section className="card mb-6 border-cyan-500/20 bg-cyan-500/5">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-5">
             <div>
               <p className="badge inline-flex items-center gap-2 mb-3">
@@ -340,7 +338,7 @@ export default function Dashboard() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="rounded-2xl bg-slate-900/70 p-4 border border-white/5">
+            <div className="rounded-2xl bg-slate-900/70 p-4 border border-emerald-500/10">
               <p className="text-emerald-300 font-bold mb-3">
                 Preferred content
               </p>
@@ -360,7 +358,7 @@ export default function Dashboard() {
               )}
             </div>
 
-            <div className="rounded-2xl bg-slate-900/70 p-4 border border-white/5">
+            <div className="rounded-2xl bg-slate-900/70 p-4 border border-red-500/10">
               <p className="text-red-300 font-bold mb-3">
                 Less relevant content
               </p>
@@ -384,10 +382,10 @@ export default function Dashboard() {
       )}
 
       <section className="grid lg:grid-cols-3 gap-6 mb-6">
-        <section className="card lg:col-span-2">
+        <section className="card lg:col-span-2 border-emerald-500/20 bg-emerald-500/5">
           <div className="flex items-start justify-between gap-4 mb-5">
             <div>
-              <h3 className="text-2xl font-black">Market Prices</h3>
+              <h3 className="text-2xl font-black">Coin Prices</h3>
               <p className="text-slate-400 text-sm mt-1">
                 Live-style pricing view for your selected crypto assets.
               </p>
@@ -405,7 +403,7 @@ export default function Dashboard() {
               return (
                 <div
                   key={price.id}
-                  className="rounded-2xl bg-slate-900/70 p-4 border border-white/5"
+                  className="rounded-2xl bg-slate-900/70 p-4 border border-emerald-500/10"
                 >
                   <div className="flex justify-between gap-4">
                     <div>
@@ -436,7 +434,7 @@ export default function Dashboard() {
           </div>
         </section>
 
-        <section className="card bg-gradient-to-br from-purple-500/10 to-cyan-400/10">
+        <section className="card bg-gradient-to-br from-purple-500/10 to-cyan-400/10 border-violet-500/20">
           <p className="badge inline-flex items-center gap-2 mb-3">
             <Sparkles size={14} />
             Market Intelligence
@@ -446,18 +444,18 @@ export default function Dashboard() {
             AI Insight of the Day
           </h3>
 
-         <div className="space-y-3">
-  {data.sections.insight.text.split('\n\n').map((block, index) => (
-    <div
-      key={index}
-      className="rounded-2xl bg-slate-950/60 border border-white/5 p-4"
-    >
-      <p className="text-slate-200 leading-7 text-sm whitespace-pre-line">
-        {block}
-      </p>
-    </div>
-  ))}
-</div>
+          <div className="space-y-3">
+            {data.sections.insight.text.split('\n\n').map((block, index) => (
+              <div
+                key={index}
+                className="rounded-2xl bg-slate-950/60 border border-violet-500/10 p-4"
+              >
+                <p className="text-slate-200 leading-7 text-sm whitespace-pre-line">
+                  {block}
+                </p>
+              </div>
+            ))}
+          </div>
 
           <p className="text-xs text-slate-400 mt-5">
             Educational content only. Not financial advice.
@@ -467,7 +465,7 @@ export default function Dashboard() {
         </section>
       </section>
 
-      <section className="card mb-6">
+      <section className="card mb-6 border-violet-500/20 bg-violet-500/5">
         <h3 className="text-2xl font-black mb-2">Tracked Assets</h3>
 
         <p className="text-slate-300 mb-4">
@@ -523,16 +521,16 @@ export default function Dashboard() {
       </section>
 
       <div className="grid lg:grid-cols-2 gap-6">
-        <section className="card">
+        <section className="card border-sky-500/20 bg-sky-500/5">
           <h3 className="text-2xl font-black mb-4">Market News</h3>
 
           <div className="space-y-4">
             {data.sections.news.map(item => (
               <article
                 key={item.id}
-                className="rounded-2xl bg-slate-900/70 p-4 border border-white/5"
+                className="rounded-2xl bg-slate-900/70 p-4 border border-sky-500/10"
               >
-                <p className="text-sm text-cyan-300">
+                <p className="text-sm text-sky-300">
                   {item.source}
                 </p>
 
@@ -561,12 +559,12 @@ export default function Dashboard() {
           </div>
         </section>
 
-        <section className="card">
+        <section className="card border-amber-500/20 bg-amber-500/5">
           <h3 className="text-2xl font-black mb-4">Fun Crypto Meme</h3>
 
-          <div className="rounded-2xl overflow-hidden bg-slate-900/70 border border-white/5">
+          <div className="rounded-2xl overflow-hidden bg-slate-900/70 border border-amber-500/10">
             <img
-  className="w-full h-80 object-contain bg-slate-950/40"
+              className="w-full h-80 object-contain bg-slate-950/40"
               src={data.sections.meme.image}
               alt={data.sections.meme.title}
             />
@@ -575,9 +573,11 @@ export default function Dashboard() {
               <h4 className="font-bold">
                 {data.sections.meme.title}
               </h4>
-            <p className="text-sm text-cyan-300 mt-1">
-  {data.sections.meme.source || 'Crypto Meme Library'}
-</p>
+
+              <p className="text-sm text-amber-300 mt-1">
+                {data.sections.meme.source || 'Crypto Meme Library'}
+              </p>
+
               <VoteButtons section="meme" itemId={data.sections.meme.id} />
             </div>
           </div>
@@ -592,22 +592,32 @@ function StatCard({
   label,
   value,
   hint,
+  tone,
 }: {
   icon: ReactNode;
   label: string;
   value: number;
   hint: string;
+  tone: 'cyan' | 'emerald' | 'violet' | 'sky' | 'red';
 }) {
+  const toneClasses = {
+    cyan: 'border-cyan-500/20 bg-cyan-500/5 text-cyan-300',
+    emerald: 'border-emerald-500/20 bg-emerald-500/5 text-emerald-300',
+    violet: 'border-violet-500/20 bg-violet-500/5 text-violet-300',
+    sky: 'border-sky-500/20 bg-sky-500/5 text-sky-300',
+    red: 'border-red-500/20 bg-red-500/5 text-red-300',
+  };
+
   return (
-    <div className="card p-5 group">
+    <div className={`card p-5 group ${toneClasses[tone]}`}>
       <div className="flex items-center justify-between mb-4">
-        <div className="text-cyan-300 group-hover:scale-110 transition-transform">
+        <div className="group-hover:scale-110 transition-transform">
           {icon}
         </div>
         <span className="text-[11px] text-slate-500">{hint}</span>
       </div>
 
-      <p className="text-3xl font-black">{value}</p>
+      <p className="text-3xl font-black text-white">{value}</p>
       <p className="text-slate-300 text-sm mt-1">{label}</p>
     </div>
   );
