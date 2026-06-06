@@ -8,7 +8,11 @@ A personalized crypto investor dashboard. Users register, complete a short onboa
 
 ### Frontend
 
-https://crypto-advisor-one.vercel.app
+Please start from the login/signup page to create a new user and complete onboarding.
+
+
+https://crypto-advisor-one.vercel.app/login
+
 
 ### Backend Health Check
 
